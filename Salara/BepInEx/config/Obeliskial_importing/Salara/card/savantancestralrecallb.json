@@ -96,7 +96,7 @@
     "TargetPosition": "Anywhere",
     "TargetSide": "Self",
     "TargetType": "Single",
-    "Vanish": false,
+    "Vanish": true,
     "GoldGainQuantity": 0,
     "ShardsGainQuantity": 0,
     "HealSelfPerDamageDonePercent": 0,

@@ -81,7 +81,7 @@ namespace Salara
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
 
-                if (CanIncrementTraitActivations(traitId) && _castedCard.HasCardType(Enums.CardType.Holy_Spell))// && MatchManager.Instance.energyJustWastedByHero > 0)
+                if (CanIncrementTraitActivations(traitId) && _castedCard.HasCardType(Enums.CardType.Mind_Spell))// && MatchManager.Instance.energyJustWastedByHero > 0)
                 {
 
                     LogDebug($"Handling Trait {traitId}: {traitName}");
@@ -187,7 +187,7 @@ namespace Salara
             // if (!IsLivingHero(__instance))
             //     return;
 
-            string traitOfInterest = trait2a;
+            // string traitOfInterest = trait2a;
             // int heal = __result;
 
             HandleOverhealTraits(ref __instance, __result, "HealRecievedFinalPostfix");
@@ -305,7 +305,7 @@ namespace Salara
                         __result.AuraDamageType = Enums.DamageType.All;
                         float multiplierAmount = characterOfInterest.HaveTrait(trait4a) ? 0.3f : 0.2f;
                         __result.AuraDamageIncreasedPerStack = multiplierAmount;
-                        __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));
+                        // __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));
                     }
                     break;
             }
@@ -318,11 +318,13 @@ namespace Salara
             Enums.EventActivation theEvent,
             Character target,
             int auxInt,
-            string auxString)
+            string auxString,
+            CardData ___cardCasted)
         {
             string enchantId = "savantmindmaze";
-            if (theEvent == Enums.EventActivation.CastCard && IfCharacterHas(__instance, CharacterHas.Enchantment, enchantId, AppliesTo.ThisHero))
+            if (theEvent == Enums.EventActivation.CastCard && IfCharacterHas(__instance, CharacterHas.Enchantment, enchantId, AppliesTo.ThisHero) && (___cardCasted?.HasCardType(Enums.CardType.Mind_Spell) ?? false))
             {
+
                 string id = enchantId;
                 if (__instance.HaveItem("savantmindmazea"))
                 {
@@ -332,11 +334,34 @@ namespace Salara
                 {
                     id = "savantmindmazeb";
                 }
+                LogDebug($"Handling Enchantment {id}");
                 CardData cardData = Globals.Instance.GetCardData(id, false);
+                if ((UnityEngine.Object)cardData == (UnityEngine.Object)null) { return; }
                 int timesActivated = 0;
-                MatchManager.Instance.DoItem(__instance, theEvent, cardData, id, target, auxInt, auxString, timesActivated);
+                Enums.EventActivation newEvent = Enums.EventActivation.AuraCurseSet;
+                string newAuxString = "shield";
+                MatchManager.Instance.DoItem(__instance, newEvent, cardData, id, target, auxInt, newAuxString, timesActivated);
             }
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Character), nameof(Character.HealBonus))]
+        public static void HealBonusPostfix(
+            Character __instance,
+            ref float[] __result,
+            int energyCost)
+        {
+            if (__instance.HaveTrait(trait0) && IsLivingHero(__instance))
+            {
+
+                float multiplierAmount = __instance.HaveTrait(trait4a) ? 0.3f : 0.2f;
+                int nShield = __instance.GetAuraCharges("shield");
+                LogDebug($"HealBonusPostfix for {__instance.SourceName} with {nShield} shield");
+                __result[0] += Mathf.RoundToInt(multiplierAmount * nShield);
+            }
+
+        }
+
 
 
 
@@ -376,6 +401,34 @@ namespace Salara
 
         //     infiniteProctection = 0;
         // }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CardData), nameof(CardData.SetDescriptionNew))]
+        public static void SetDescriptionNewPostfix(ref CardData __instance, bool forceDescription = false, Character character = null, bool includeInSearch = true)
+        {
+            // LogInfo("executing SetDescriptionNewPostfix");
+            if (__instance == null)
+            {
+                LogDebug("Null Card");
+                return;
+            }
+            if (!Globals.Instance.CardsDescriptionNormalized.ContainsKey(__instance.Id))
+            {
+                LogError($"missing card Id {__instance.Id}");
+                return;
+            }
+
+
+            if (__instance.CardName == "Mind Maze")
+            {
+                StringBuilder stringBuilder1 = new StringBuilder();
+                LogDebug($"Current description for {__instance.Id}: {stringBuilder1}");
+                string currentDescription = Globals.Instance.CardsDescriptionNormalized[__instance.Id];
+                stringBuilder1.Append(currentDescription);
+                stringBuilder1.Replace($"When you apply", $"When you play a Mind Spell\n or apply");
+                BinbinNormalizeDescription(ref __instance, stringBuilder1);
+            }
+        }
 
     }
 }
