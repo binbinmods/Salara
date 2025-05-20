@@ -1,0 +1,15 @@
+{
+    "BaseSkin": true,
+    "PerkLevel": 0,
+    "SkinGO": "skinsalara",
+    "SkinID": "savantbase",
+    "SkinName": "Default",
+    "SkinOrder": 0,
+    "SkinSubclass": "savant",
+    "Sku": "",
+    "SpritePortrait": "salaraPortrait",
+    "SpritePortraitGrande": "salaraPortraitGrande",
+    "SpriteSilueta": "salaraSilueta",
+    "SpriteSiluetaGrande": "salaraSiluetaGrande",
+    "SteamStat": ""
+}

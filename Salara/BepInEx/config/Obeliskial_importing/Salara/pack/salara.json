@@ -1,0 +1,15 @@
+{
+    "Card0": "savantspiral",
+    "Card1": "infusecourage",
+    "Card2": "elementalward",
+    "Card3": "bindingheal",
+    "Card4": "hallucination",
+    "Card5": "",
+    "CardSpecial0": "",
+    "CardSpecial1": "",
+    "PackClass": "healer",
+    "PackID": "salara",
+    "PackName": "Salara",
+    "PerkList": [],
+    "RequiredClass": "savant"
+}
