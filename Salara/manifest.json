@@ -1,8 +1,8 @@
 {
   "name": "Salara_The_Savant",
-  "version_number": "0.1.4",
+  "version_number": "0.1.1",
   "website_url": "https://github.com/binbinmods/Salara",
-  "description": "New Hero Mod for Salara, the Savant. A mage that specializes in Bludgeoning foes with Chill and Cold Spells.",
+  "description": "New Hero Mod for Salara, the Savant. A Mage Healer that specializes in Shield, Mind damage and Healing",
   "dependencies": [
     "meds-Obeliskial_Content-1.5.0",
     "meds-Obeliskial_Essentials-1.4.6"

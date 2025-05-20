@@ -351,7 +351,7 @@ namespace Salara
                 LogDebug($"{function} - trait4b overheal - adding shield");
                 int amountOverhealed = heal - hero.GetHpLeftForMax();
                 if (amountOverhealed <= 0) { return; }
-                hero.SetAura(hero, GetAuraCurseData("shield"), amountOverhealed, useCharacterMods: false);
+                hero.SetAura(null, GetAuraCurseData("shield"), amountOverhealed, useCharacterMods: false);
             }
         }
     }

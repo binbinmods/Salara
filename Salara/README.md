@@ -1,6 +1,8 @@
 # Salara, the Savant
 
-A hero mod, introducing Salara, Blunt and Cold specialized Mage.
+A hero mod, introducing Salara, a mage/healer who has been trapped in a mental cage. She goes on a journey to break out but has two very different ways of doing so overcoming the issues in a calm and focused way or forcefully breaking out of the cage through sheer will.
+
+This character was designed by @ga7021.
 
 This currently does not include any events or quests related to Salara other than those available to all heroes or all heroes of a specific class.
 
@@ -16,7 +18,7 @@ This mod relies on [Obeliskial Content](https://across-the-obelisk.thunderstore.
 
 ## Character Summary
 
-![Summary](https://raw.githubusercontent.com/binbinmods/Salara/refs/heads/main/Assets/SalaraSummary.png)
+![Summary](https://raw.githubusercontent.com/binbinmods/Salara/refs/heads/main/Assets/salaraSummary.png)
 
 ## Installation (manual)
 
