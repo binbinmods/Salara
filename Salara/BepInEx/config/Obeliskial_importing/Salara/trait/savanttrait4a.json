@@ -1,9 +1,9 @@
 {
     "Activation": "None",
-    "AuraCurseBonus1": "",
+    "AuraCurseBonus1": "Shield",
     "AuraCurseBonus2": "",
     "AuraCurseBonus3": "",
-    "AuraCurseBonusValue1": 0,
+    "AuraCurseBonusValue1": 3,
     "AuraCurseBonusValue2": 0,
     "AuraCurseBonusValue3": 0,
     "AuraCurseImmune1": "",

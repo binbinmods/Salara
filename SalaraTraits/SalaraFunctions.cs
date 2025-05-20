@@ -344,24 +344,14 @@ namespace Salara
             __instance.SetAura(__instance, GetAuraCurseData("block"), amountOverhealed, useCharacterMods: false);
         }
 
-        public static void HandleBothOverhealTraits(ref Character hero, int heal, string function)
+        public static void HandleOverhealTraits(ref Character hero, int heal, string function)
         {
-            if (hero.HaveTrait(trait2b) && IsLivingHero(hero))
+            if (AtOManager.Instance.TeamHaveTrait(trait4b) && IsLivingHero(hero))
             {
-                LogDebug($"{function} - trait2b overheal - adding block");
-                // trait 2b:  
-                // Block on you cannot be Purged. 
-                // When overhealed, gain Block equal to that amount. - Does not gain bonuses -
+                LogDebug($"{function} - trait4b overheal - adding shield");
                 int amountOverhealed = heal - hero.GetHpLeftForMax();
-                HandleEbonGuardTrait2b(ref hero, amountOverhealed);
-            }
-            if (hero.HaveTrait(trait2a) && IsLivingHero(hero) && CanIncrementTraitActivations(trait2a, useRound: true))
-            {
-                LogDebug($"{function} - trait2a overheal");
-                // trait2a:
-                // When overhealed, deal 6 Shadow Damage to a random Monster and gain 1 Regeneration. (6 times/round)
-                int amountOverhealed = heal - hero.GetHpLeftForMax();
-                HandleOverflowingMaliceTrait2a(ref hero, amountOverhealed, trait2a);
+                if (amountOverhealed <= 0) { return; }
+                hero.SetAura(hero, GetAuraCurseData("shield"), amountOverhealed, useCharacterMods: false);
             }
         }
     }
