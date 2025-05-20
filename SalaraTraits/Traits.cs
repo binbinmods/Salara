@@ -302,7 +302,7 @@ namespace Salara
                     traitOfInterest = trait0;
                     if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.ThisHero))
                     {
-                        __result.AuraDamageType = Enums.DamageType.All;
+                        __result.AuraDamageType = Enums.DamageType.Mind;
                         float multiplierAmount = characterOfInterest.HaveTrait(trait4a) ? 0.3f : 0.2f;
                         __result.AuraDamageIncreasedPerStack = multiplierAmount;
                         // __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));

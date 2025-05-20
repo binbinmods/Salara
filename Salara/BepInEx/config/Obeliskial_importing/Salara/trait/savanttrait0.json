@@ -23,7 +23,7 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "Shield on you increases All Damage and Healing Done by 0.2 per charge",
+    "Description": "Shield on you increases Mind Damage and Healing Done by 0.2 per charge",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,
