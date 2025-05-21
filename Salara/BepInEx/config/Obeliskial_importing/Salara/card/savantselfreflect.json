@@ -16,7 +16,7 @@
     "UpgradesTo1": "savantselfreflecta",
     "UpgradesTo2": "savantselfreflectb",
     "UpgradesToRare": "",
-    "CardClass": "Healer",
+    "CardClass": "Special",
     "CardType": "Healing_Spell",
     "CardTypeAux": [
         "Defense",

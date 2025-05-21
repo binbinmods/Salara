@@ -16,7 +16,7 @@
     "UpgradesTo1": "",
     "UpgradesTo2": "",
     "UpgradesToRare": "",
-    "CardClass": "Healer",
+    "CardClass": "Special",
     "CardType": "Healing_Spell",
     "CardTypeAux": [
         "Defense",

@@ -303,16 +303,25 @@ namespace Salara
                     if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.ThisHero))
                     {
                         __result.AuraDamageType = Enums.DamageType.Mind;
-                        float multiplierAmount = characterOfInterest.HaveTrait(trait4a) ? 0.3f : 0.2f;
+                        float multiplierAmount = 0.2f;  //characterOfInterest.HaveTrait(trait4a) ? 0.3f : 0.2f;
                         __result.AuraDamageIncreasedPerStack = multiplierAmount;
+                        // __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));
+                    }
+                    break;
+                case "insane":
+                    traitOfInterest = trait4a;
+                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.Monsters))
+                    {
+                        // __result.ResistModified = Enums.DamageType.Mind;                        
+                        __result.ResistModifiedPercentagePerStack -= 1;
                         // __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));
                     }
                     break;
             }
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Character), nameof(Character.ActivateItem))]
+        // [HarmonyPostfix]
+        // [HarmonyPatch(typeof(Character), nameof(Character.ActivateItem))]
         public static void ActivateItem(
             Character __instance,
             Enums.EventActivation theEvent,
@@ -363,10 +372,6 @@ namespace Salara
         }
 
 
-
-
-
-
         [HarmonyPrefix]
         [HarmonyPatch(typeof(CharacterItem), nameof(CharacterItem.CalculateDamagePrePostForThisCharacter))]
         public static void CalculateDamagePrePostForThisCharacterPrefix()
@@ -402,6 +407,78 @@ namespace Salara
         //     infiniteProctection = 0;
         // }
 
+        // [HarmonyPrefix]
+        // [HarmonyPatch(typeof(Character), nameof(Character.RemoveEnchantsStartTurn))]
+        // public static void RemoveEnchantsStartTurnPrefix(Character __instance, ref (int, string) __state)
+        // {
+        //     if (!__instance.HaveTrait(trait0))
+        //     {
+        //         return;
+        //     }
+        //     __state.Item1 = 0;
+
+        //     if (__instance.Enchantment.StartsWith("savantmindmaze"))
+        //     {
+        //         __state.Item1 = MatchManager.Instance.ItemExecuteForThisCombat("savant", "savantmindmaze", 2, "") ? 0 : -1;
+        //         if(__state.Item1 == -1)
+        //         {
+        //             return;
+        //         }
+        //         __state.Item1 = 1;
+        //         __state.Item2 = __instance.Enchantment;
+        //     }
+        //     else if (__instance.Enchantment2.StartsWith("savantmindmaze"))
+        //     {
+        //         __state.Item1 = MatchManager.Instance.ItemExecuteForThisCombat("savant", "savantmindmaze", 2, "") ? 0 : -1;
+        //         if(__state.Item1 == -1)
+        //         {
+        //             return;
+        //         }
+        //         __state.Item1 = 2;
+        //         __state.Item2 = __instance.Enchantment2;
+        //     }
+        //     else if (__instance.Enchantment3.StartsWith("savantmindmaze"))
+        //     {
+        //         __state.Item1 = MatchManager.Instance.ItemExecuteForThisCombat("savant", "savantmindmaze", 2, "") ? 0 : -1;
+        //         if(__state.Item1 == -1)
+        //         {
+        //             return;
+        //         }
+        //         __state.Item1 = 3;
+        //         __state.Item2 = __instance.Enchantment3;
+        //     }
+
+
+        //     LogDebug("RemoveEnchantsStartTurnPrefix Current State " + __state);
+        // }
+
+        // [HarmonyPostfix]
+        // [HarmonyPatch(typeof(Character), nameof(Character.RemoveEnchantsStartTurn))]
+        // public static void RemoveEnchantsStartTurnPostfix(Character __instance, (int, string) __state)
+        // {
+        //     // __state = MatchManager.Instance.ItemExecuteForThisCombat("savant", "savantmindmaze", 2, "") ? -1 : 0;
+        //     int itemSlot = __state.Item1;
+        //     string enchantId = __state.Item2;
+        //     if (itemSlot <= 0 |)
+        //     {
+        //         return;
+        //     }
+        //     if (itemSlot == 1)
+        //     {
+        //         __instance.Enchantment = enchantId;
+        //     }
+        //     else if (itemSlot == 2)
+        //     {
+        //         __instance.Enchantment2 = enchantId;
+        //     }
+        //     else if (itemSlot == 3)
+        //     {
+        //         __instance.Enchantment3 = enchantId;
+        //     }
+
+        //     LogDebug("RemoveEnchantsStartTurnPrefix Current State " + __state);
+        // }
+
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardData), nameof(CardData.SetDescriptionNew))]
         public static void SetDescriptionNewPostfix(ref CardData __instance, bool forceDescription = false, Character character = null, bool includeInSearch = true)
@@ -425,7 +502,8 @@ namespace Salara
                 LogDebug($"Current description for {__instance.Id}: {stringBuilder1}");
                 string currentDescription = Globals.Instance.CardsDescriptionNormalized[__instance.Id];
                 stringBuilder1.Append(currentDescription);
-                stringBuilder1.Replace($"When you apply", $"When you play a Mind Spell\n or apply");
+                // stringBuilder1.Replace($"When you apply", $"When you play a Mind Spell\n or apply");
+                stringBuilder1.Replace($"Lasts one turn", $"Lasts two turns");
                 BinbinNormalizeDescription(ref __instance, stringBuilder1);
             }
         }
