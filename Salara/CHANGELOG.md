@@ -1,3 +1,7 @@
+# 0.2.0
+
+Update for AtO v1.7.2
+
 # 0.1.3
 
 Self Reflect no longer can be crafted

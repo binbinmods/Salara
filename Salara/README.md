@@ -18,7 +18,7 @@ This mod relies on [Obeliskial Content](https://across-the-obelisk.thunderstore.
 
 ## Character Summary
 
-![Summary](https://raw.githubusercontent.com/binbinmods/Salara/refs/heads/main/Assets/salaraSummary.png)
+![Summary](https://raw.githubusercontent.com/binbinmods/Salara/refs/heads/main/Assets/SalaraSummary.png)
 
 ## Installation (manual)
 
